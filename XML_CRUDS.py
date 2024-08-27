@@ -1,11 +1,10 @@
+# CRUDS operation on XML data using ET in Python
+
 import xml.etree.ElementTree as ET
 import os
 
-# Function to load existing data from the XML file
 def load_data(filename):
-    # Check if file exists and is not empty
     if not os.path.exists(filename) or os.stat(filename).st_size == 0:
-        # Return empty list if the file doesn't exist or is empty
         return []
 
     try:
@@ -28,7 +27,6 @@ def load_data(filename):
         print("Error: The XML file is malformed.")
         return []
 
-# Function to save data into the XML file
 def save_data(items, filename):
     root = ET.Element("items")
 
@@ -46,7 +44,6 @@ def save_data(items, filename):
     tree.write(filename)
     print("Data saved to file!")
 
-# Create Operation
 def create_item(items):
     item_id = input("Enter New ItemID: ")
     item_description = input("Enter Description of the Item: ")
@@ -64,7 +61,6 @@ def create_item(items):
     except ValueError:
         print("Invalid price entered. Please enter a valid number for the price.")
 
-# Read Operation
 def read_items(items):
     if items:
         print("\nCurrent Items in the XML:")
@@ -73,9 +69,9 @@ def read_items(items):
     else:
         print("No items found.")
 
-# Update Operation
 def update_item(items):
     item_id = input("Enter ItemID to Update: ")
+    search_item(item_id)
     for item in items:
         if item['item_id'] == item_id:
             item['description'] = input("Enter New Description: ")
@@ -84,7 +80,6 @@ def update_item(items):
             return
     print("Item not found!")
 
-# Delete Operation
 def delete_item(items):
     item_id = input("Enter ItemID to Delete: ")
     for item in items:
@@ -94,7 +89,6 @@ def delete_item(items):
             return
     print("Item not found!")
 
-# Search Operation
 def search_item(items):
     item_id = input("Enter ItemID to Search: ")
     for item in items:
